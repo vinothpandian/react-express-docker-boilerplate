@@ -1,11 +1,8 @@
-FROM node:8-slim
-
+FROM node:24-slim
 WORKDIR /opt/app/
-
-COPY package.json yarn.lock ./
-
-RUN yarn install
-
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
-
-CMD yarn start
+RUN npm run build:prod && npm prune --omit=dev
+EXPOSE 8080
+CMD ["npm", "run", "serve"]
