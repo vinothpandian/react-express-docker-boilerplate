@@ -1,9 +1,12 @@
 import React from 'react'
-import { hydrate } from 'react-dom'
+import { hydrate, render } from 'react-dom'
 
 import HelloWorld from './components/helloWorld'
 
-hydrate(
+const target = document.getElementById('app')
+const renderApp = target.firstElementChild ? hydrate : render
+
+renderApp(
   <HelloWorld />,
-  document.getElementById('app')
+  target
 )
